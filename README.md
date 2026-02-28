@@ -72,4 +72,3 @@ Created with ❤️ by **RealSheepCounter**.
 
 ---
 *Note: This project is in active development. For production use, ensure proper firewall/ACL rules are in place as this manages infrastructure credentials.*
-
