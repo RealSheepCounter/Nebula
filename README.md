@@ -2,7 +2,7 @@
 
 Nebula is a premium, lightweight infrastructure and inventory management dashboard designed for homelabs and small data centers. It provides a visual overview of physical servers, virtual machines, and network topology with integrated Proxmox and UniFi support.
 
-![Nebula Dashboard Mockup](static/icons/nebula-preview.png)
+![Nebula Banner](branding/Brand%20Slim.png)
 
 ## 🚀 Key Features
 
@@ -10,7 +10,7 @@ Nebula is a premium, lightweight infrastructure and inventory management dashboa
 - **Proxmox Integration:** Pull VM and Container data directly from your Proxmox nodes.
 - **UniFi Topology:** Automatically sync and map your UniFi network infrastructure (Switches, UDM, APs).
 - **Network Planner:** A dynamic, interactive map of your entire infrastructure and its connections.
-- **Dynamic Themes:** Highly customizable glassmorphism UI with multiple color palettes.
+- **Dynamic Themes:** Customizable glass UI with multiple color palettes.
 - **CSV Export:** Export your complete inventory to CSV with a single click.
 
 ## 📦 Deployment
@@ -52,9 +52,23 @@ The easiest way to run Nebula is using Docker.
 - **UniFi:** Navigate to the "Network Planner" and use the "Connect UniFi" button.
 - **Persistence:** All data is stored in a local `data.db` SQLite file.
 
+## 🖼️ Screenshots
+
+<p align="center">
+  <img src="branding/Default%20Home.png" width="400" alt="Home Dashboard">
+  <img src="branding/Network.png" width="400" alt="Network Planner">
+</p>
+<p align="center">
+  <img src="branding/Racks.png" width="400" alt="Rack Management">
+  <img src="branding/Settings.png" width="400" alt="Settings">
+</p>
+<p align="center">
+  <img src="branding/UniFI%20Add.png" width="400" alt="UniFi Integration">
+</p>
+
 ## 🤝 Credits
 
 Created with ❤️ by **RealSheepCounter**.
 
 ---
-*Note: This project is in active development. For production use, ensure proper firewall rules are in place as this manages infrastructure credentials.*
+*Note: This project is in active development. For production use, ensure proper firewall/ACL rules are in place as this manages infrastructure credentials.*
