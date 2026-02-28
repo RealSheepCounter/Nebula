@@ -55,15 +55,19 @@ The easiest way to run Nebula is using Docker.
 ## 🖼️ Screenshots
 
 <p align="center">
-  <img src="Branding/Default%20Home.png" width="400" alt="Home Dashboard">
-  <img src="Branding/Network.png" width="400" alt="Network Planner">
+  <img src="Branding/Default%20Home.png" width="100%" alt="Home Dashboard">
 </p>
 <p align="center">
-  <img src="Branding/Racks.png" width="400" alt="Rack Management">
-  <img src="Branding/Settings.png" width="400" alt="Settings">
+  <img src="Branding/Network.png" width="100%" alt="Network Planner">
 </p>
 <p align="center">
-  <img src="Branding/UniFI%20Add.png" width="400" alt="UniFi Integration">
+  <img src="Branding/Racks.png" width="100%" alt="Rack Management">
+</p>
+<p align="center">
+  <img src="Branding/Settings.png" width="100%" alt="Settings">
+</p>
+<p align="center">
+  <img src="Branding/UniFI%20Add.png" width="100%" alt="UniFi Integration">
 </p>
 
 ## 🤝 Credits
