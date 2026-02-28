@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula | Network Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body class="palette-blue">
+    <div class="app-container">
+        <header class="glass-panel main-header">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>Nebula</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="/">Dashboard</a>
+                <a href="/network" class="active">Network Planner</a>
+            </nav>
+            <div class="header-actions">
+                <button id="btn-connect-unifi" class="glass-button primary">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.343 8.586c5.857-5.858 15.355-5.858 21.213 0">
+                        </path>
+                    </svg>
+                    Connect UniFi
+                </button>
+                <button id="btn-add-manual-device" class="glass-button primary">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Add Manual Device
+                </button>
+                <button id="btn-settings" class="icon-button" title="Settings">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
+                        </path>
+                    </svg>
+                </button>
+                <a href="/api/export/csv" class="glass-button secondary" title="Export to CSV">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    CSV
+                </a>
+            </div>
+        </header>
+
+        <main class="network-planner-container">
+            <div class="glass-panel main-network-panel">
+                <div id="mynetwork"></div>
+            </div>
+
+            <div id="unifi-results" style="display: none; margin-top: 2rem;">
+                <div id="unifi-device-list"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- UniFi Info Modal -->
+    <div class="modal-overlay" id="modal-unifi-info">
+        <div class="glass-panel modal-content">
+            <div class="modal-header">
+                <h2>Network Connection Info</h2>
+                <button class="icon-button close-modal">&times;</button>
+            </div>
+            <div class="detail-grid" style="margin-top: 1rem;">
+                <div class="detail-item">
+                    <div class="detail-label">Name</div>
+                    <div id="unifi-info-name" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Controller Host</div>
+                    <div id="unifi-info-host" class="detail-value"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Username</div>
+                    <div id="unifi-info-user" class="detail-value text-muted"></div>
+                </div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:2rem;">
+                <button id="btn-unifi-delete" class="glass-button"
+                    style="background: rgba(255,75,75,0.1); color: var(--danger); border: 1px solid var(--danger);">Disconnect
+                    & Clear Cache</button>
+                <button type="button" class="glass-button secondary close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UniFi Credentials Modal -->
+    <div class="modal-overlay" id="modal-unifi-creds">
+        <div class="glass-panel modal-content">
+            <div class="modal-header">
+                <h2>UniFi Network Connection</h2>
+                <button class="icon-button close-modal">&times;</button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Enter your UniFi Controller
+                (UDM/Cloud Key) details to sync network data.</p>
+            <form id="form-unifi-creds">
+                <div class="form-group">
+                    <label>Controller Host/IP</label>
+                    <input type="text" id="unifi-host" required placeholder="e.g. 192.168.1.1">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="unifi-user" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="unifi-pass" required>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:2rem;">
+                    <button type="button" class="glass-button secondary close-modal">Cancel</button>
+                    <button type="submit" id="btn-unifi-connect" class="glass-button primary">Connect & Pull
+                        Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Manual Device Modal -->
+    <div class="modal-overlay" id="modal-manual-device">
+        <div class="glass-panel modal-content wide">
+            <div class="modal-header">
+                <h2 id="manual-device-modal-title">Add Network Device</h2>
+                <button class="icon-button close-modal">&times;</button>
+            </div>
+            <form id="form-manual-device">
+                <input type="hidden" id="manual-device-id">
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group"><label>Device Name</label><input type="text" id="manual-name" required
+                            placeholder="e.g. Core Switch 01"></div>
+                    <div class="form-group">
+                        <label>Device Type</label>
+                        <select id="manual-type"
+                            style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.8rem; color: var(--text-main); font-family: inherit;">
+                            <option value="Switch">Switch</option>
+                            <option value="Router">Router / Gateway</option>
+                            <option value="Access Point">Access Point</option>
+                            <option value="Camera">Security Camera</option>
+                            <option value="Other">Other Infrastructure</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Brand</label><input type="text" id="manual-brand"
+                            placeholder="e.g. Cisco, Ubiquiti"></div>
+                    <div class="form-group"><label>Model</label><input type="text" id="manual-model"
+                            placeholder="e.g. Enterprise 24 PoE"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>IP Address</label><input type="text" id="manual-ip"></div>
+                    <div class="form-group"><label>Serial Number</label><input type="text" id="manual-serial"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; gap:1rem; margin-top:2rem;">
+                    <button type="button" id="btn-delete-manual-device" class="glass-button"
+                        style="background: rgba(255,75,75,0.1); color: var(--danger); border: 1px solid var(--danger); display: none;">Delete
+                        Device</button>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" class="glass-button secondary close-modal">Cancel</button>
+                        <button type="submit" class="glass-button primary">Save Device</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/common.js"></script>
+    <script src="/js/network.js"></script>
+</body>
+
+</html>
