@@ -2,7 +2,7 @@
 
 Nebula is a premium, lightweight infrastructure and inventory management dashboard designed for homelabs and small data centers. It provides a visual overview of physical servers, virtual machines, and network topology with integrated Proxmox and UniFi support.
 
-![Nebula Banner](branding/Brand%20Slim.png)
+![Nebula Banner](Branding/Brand%20Slim.png)
 
 ## 🚀 Key Features
 
@@ -55,15 +55,15 @@ The easiest way to run Nebula is using Docker.
 ## 🖼️ Screenshots
 
 <p align="center">
-  <img src="branding/Default%20Home.png" width="400" alt="Home Dashboard">
-  <img src="branding/Network.png" width="400" alt="Network Planner">
+  <img src="Branding/Default%20Home.png" width="400" alt="Home Dashboard">
+  <img src="Branding/Network.png" width="400" alt="Network Planner">
 </p>
 <p align="center">
-  <img src="branding/Racks.png" width="400" alt="Rack Management">
-  <img src="branding/Settings.png" width="400" alt="Settings">
+  <img src="Branding/Racks.png" width="400" alt="Rack Management">
+  <img src="Branding/Settings.png" width="400" alt="Settings">
 </p>
 <p align="center">
-  <img src="branding/UniFI%20Add.png" width="400" alt="UniFi Integration">
+  <img src="Branding/UniFI%20Add.png" width="400" alt="UniFi Integration">
 </p>
 
 ## 🤝 Credits
@@ -72,3 +72,4 @@ Created with ❤️ by **RealSheepCounter**.
 
 ---
 *Note: This project is in active development. For production use, ensure proper firewall/ACL rules are in place as this manages infrastructure credentials.*
+
